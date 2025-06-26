@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎊 Birthday Wishes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, blue, #fbd3e9);
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      background: rgba(255, 255, 255, 0.2);
+      border-left: 5px solid #fff;
+      padding: 10px 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .message strong {
+      color: #ffe;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4444;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎂 Birthday Wishes</h1>
+  <div id="messages"></div>
+
+  <script>
+    const messagesContainer = document.getElementById("messages");
+    let wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
+
+    function renderMessages() {
+      messagesContainer.innerHTML = "";
+
+      if (wishes.length === 0) {
+        messagesContainer.innerHTML = "<p style='text-align:center;'>No wishes yet.</p>";
+        return;
+      }
+
+      wishes.forEach((entry, index) => {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message";
+        msgDiv.innerHTML = `
+          <strong>${entry.name}:</strong> ${entry.wish}
+          <button class="delete-btn" onclick="deleteMessage(${index})">Delete</button>
+        `;
+        messagesContainer.appendChild(msgDiv);
+      });
+    }
+
+    function deleteMessage(index) {
+      if (confirm("Are you sure you want to delete this wish?")) {
+        wishes.splice(index, 1);
+        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
+        renderMessages();
+      }
+    }
+
+    renderMessages();
+  </script>
+
+</body>
+</html>
