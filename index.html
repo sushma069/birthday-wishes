@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Personal Info</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      transition: all 0.5s ease;
+      background-image: url('ani.gif');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #ddd;
+      font-family: 'Trebuchet MS', sans-serif;
+    }
+
+    #inpt {
+      border: solid 7px #5c5c5c;
+      border-radius: 25px;
+      width: 250px;
+      height: 200px;
+      position: relative;
+      margin: 240px auto 0;
+      padding: 10px 20px;
+      background-color: rgba(30, 30, 30, 0.85);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+
+    #btn {
+      margin-left: 85px;
+      padding: 5px 10px;
+      background-color: #2f2f2f;
+      border: 2px solid #888;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    #btn:hover {
+      background-color: #555;
+      transform: scale(1.1);
+    }
+
+    #errormsg {
+      font-family: Cursive;
+      color: #f88;
+      display: none;
+    }
+
+    #lbl {
+      color: #dcdcdc;
+      padding-top: 2px;
+      text-shadow: 1px 1px 1px black;
+    }
+
+    p {
+      font-size: 20px;
+      color: #dcdcdc;
+      text-align: center;
+      font-family: Cursive;
+      text-shadow: 4px 10px 4px black;
+    }
+
+    input[type="password"] {
+      border-radius: 5px;
+      padding: 4px;
+      width: 90%;
+    }
+  </style>
+</head>
+<body>
+  <div id="inpt">
+    <p id="p">ENTER TO START THE SURPRISE!</p>
+    <form id="myform">
+      <label id="lbl">Name:</label><br>
+      <input type="password" name="username" id="name" placeholder="Enter your name" required>
+      <br><br>
+      <button type="submit" id="btn">Next</button>
+      <p id="errormsg"></p>
+    </form>
+  </div>
+
+  <script>
+    const allowedname = "vamshi peese0793";
+    document.getElementById('myform').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let name = document.getElementById('name').value.trim();
+      if (name === allowedname) {
+        localStorage.setItem('name', name);
+        window.location.href = "animecount.html";
+      } else {
+        const errormsg = document.getElementById('errormsg');
+        errormsg.innerText = "Sorry, you are not allowed!";
+        errormsg.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
