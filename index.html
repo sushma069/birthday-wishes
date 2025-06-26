@@ -1,102 +1,188 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Personal Info</title>
+  <meta charset="UTF-8">
+  <title>🎂 Birthday Surprise Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      transition: all 0.5s ease;
-      background-image: url('ani.gif');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #ddd;
       font-family: 'Trebuchet MS', sans-serif;
+      background: url('ani.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: white;
     }
 
-    #inpt {
-      border: solid 7px #5c5c5c;
-      border-radius: 25px;
-      width: 250px;
-      height: 200px;
-      position: relative;
-      margin: 240px auto 0;
-      padding: 10px 20px;
-      background-color: rgba(30, 30, 30, 0.85);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 2px 2px 4px #000;
     }
 
-    #btn {
-      margin-left: 85px;
-      padding: 5px 10px;
-      background-color: #2f2f2f;
-      border: 2px solid #888;
-      border-radius: 8px;
+    .button-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 1.1em;
+      background: linear-gradient(135deg, #f78fdd, #b77cff); /* Anime-matching colors */
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
       color: white;
+      font-weight: bold;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
-    #btn:hover {
-      background-color: #555;
-      transform: scale(1.1);
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #e26ec4, #8c6fff); /* Hover variation */
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     }
 
-    #errormsg {
-      font-family: Cursive;
-      color: #f88;
+    .form-container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
       display: none;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.4);
     }
 
-    #lbl {
-      color: #dcdcdc;
-      padding-top: 2px;
-      text-shadow: 1px 1px 1px black;
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
     }
 
-    p {
-      font-size: 20px;
-      color: #dcdcdc;
+    input::placeholder, textarea::placeholder {
+      color: #999;
+    }
+
+    #success-message, #error-message {
       text-align: center;
-      font-family: Cursive;
-      text-shadow: 4px 10px 4px black;
+      margin-top: 15px;
+      font-size: 1em;
     }
 
-    input[type="password"] {
-      border-radius: 5px;
-      padding: 4px;
-      width: 90%;
+    #success-message {
+      color: lightgreen;
+    }
+
+    #error-message {
+      color: #f88;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+        gap: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="inpt">
-    <p id="p">ENTER TO START THE SURPRISE!</p>
-    <form id="myform">
-      <label id="lbl">Name:</label><br>
-      <input type="password" name="username" id="name" placeholder="Enter your name" required>
-      <br><br>
-      <button type="submit" id="btn">Next</button>
-      <p id="errormsg"></p>
+
+  <h1>🎉 Welcome to the Birthday Portal</h1>
+
+  <div class="button-group">
+    <button onclick="showForm('student')">🎓 I'm a Student</button>
+    <button onclick="showForm('host')">🔐 Login as Vamshi</button>
+  </div>
+
+  <!-- 🎓 Student Wish Form -->
+  <div id="studentForm" class="form-container">
+    <h2>🎓 Leave a Birthday Wish!</h2>
+    <form onsubmit="submitWish(event)">
+      <input type="text" id="studentName" placeholder="Student Name" required>
+      <textarea id="studentWish" rows="4" placeholder="Your Birthday Message" required></textarea>
+      <button type="submit">Send Wish 🎉</button>
     </form>
+    <div id="success-message" style="display: none;">✅ Your wish has been saved!</div>
+  </div>
+
+  <!-- 🔐 Host Login Form -->
+  <div id="hostForm" class="form-container">
+    <h2>🔐 Login</h2>
+    <form onsubmit="checkLogin(event)">
+      <input type="password" id="hostName" placeholder="Enter your name" required>
+      <button type="submit">Login</button>
+    </form>
+    <div id="error-message" style="display: none;">❌ Sorry, you are not allowed!</div>
   </div>
 
   <script>
-    const allowedname = "vamshi peese0793";
-    document.getElementById('myform').addEventListener('submit', function(e) {
-      e.preventDefault();
-      let name = document.getElementById('name').value.trim();
-      if (name === allowedname) {
-        localStorage.setItem('name', name);
+    function showForm(type) {
+      document.getElementById('studentForm').classList.remove('visible');
+      document.getElementById('hostForm').classList.remove('visible');
+      document.getElementById('success-message').style.display = 'none';
+      document.getElementById('error-message').style.display = 'none';
+
+      if (type === 'student') {
+        document.getElementById('studentForm').classList.add('visible');
+      } else if (type === 'host') {
+        document.getElementById('hostForm').classList.add('visible');
+      }
+    }
+
+    function submitWish(event) {
+      event.preventDefault();
+      const name = document.getElementById("studentName").value.trim();
+      const wish = document.getElementById("studentWish").value.trim();
+
+      if (name && wish) {
+        const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
+        wishes.unshift({ name, wish });
+        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
+
+        document.getElementById("success-message").style.display = "block";
+        document.getElementById("studentName").value = "";
+        document.getElementById("studentWish").value = "";
+      } else {
+        alert("Please enter both name and wish.");
+      }
+    }
+
+    function checkLogin(event) {
+      event.preventDefault();
+      const inputName = document.getElementById("hostName").value.trim().toLowerCase();
+      const allowedName = "vamshi peese0793";
+
+      if (inputName === allowedName.toLowerCase()) {
+        localStorage.setItem("name", inputName);
         window.location.href = "animecount.html";
       } else {
-        const errormsg = document.getElementById('errormsg');
-        errormsg.innerText = "Sorry, you are not allowed!";
-        errormsg.style.display = "block";
+        document.getElementById("error-message").style.display = "block";
       }
-    });
+    }
   </script>
+
 </body>
 </html>
