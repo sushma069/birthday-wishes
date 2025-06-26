@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Quicksand:wght@400;700&display=swap');
+
+    :root {
+      --bg-color: #1b2a49;
+      --card-bg: rgba(20, 30, 60, 0.92);
+      --tap-bg: linear-gradient(135deg, #4f79a4, #3a5370);
+      --heading-color: #ffd6d6;
+      --font-title: 'Fredericka the Great', cursive;
+      --text-color: #e4f0fb;
+      --to-line-color: #f9f7f3;
+      --footer-color: #d3e2f1;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-color);
+      background-image: url('msgimg.jpg'); /* Replace with your own hosted image if needed */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.5s ease;
+    }
+
+    .card-container {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .tap-card {
+      background: var(--tap-bg);
+      border-radius: 15px;
+      padding: 25px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.4s;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    .tap-card:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      color: var(--heading-color);
+      font-family: var(--font-title);
+      margin-bottom: 10px;
+      font-size: 36px;
+    }
+
+    .to-line {
+      font-size: 20px;
+      color: var(--to-line-color);
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 15px;
+      color: var(--text-color);
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 13px;
+      color: var(--footer-color);
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-container {
+      position: fixed;
+      bottom: -100px;
+      width: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .balloon {
+      position: absolute;
+      font-size: 30px;
+      animation: float 8s infinite ease-in;
+      opacity: 0.8;
+    }
+
+    .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .balloon:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .balloon:nth-child(3) { left: 60%; animation-delay: 4s; }
+    .balloon:nth-child(4) { left: 80%; animation-delay: 6s; }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-container">
+  <div class="tap-card" onclick="showMessage()">Tap to open your card</div>
+
+  <div id="card-content" style="display:none;">
+    <h1>Happy Birthday!</h1>
+    <div class="to-line">To the one who calls me Kodi and never misses a chance to joke about my height! 😄</div>
+    <div class="message">
+      You're not just a lecturer -- you're a 📖 storyteller and a 💡 motivator.<br>
+      Your words stay with us longer than any textbook ever could 🧠✨.<br>
+      You make complex things sound simple, and boring things feel fun 🎓📚.<br><br>
+      🎂 Wishing you a birthday as amazing as your energy ⚡,<br>
+      As bright as your knowledge 🧠,<br>
+      And as cheerful as your humour 😄!<br><br>
+      May your year ahead be filled with joy 😊, good health,<br>
+      And all the success you truly deserve 🏆.
+    </div>
+    <div class="footer">
+      With full respect and smiles,<br>Kodi
+    </div>
+
+    <div style="margin-top: 20px;">
+      <a href="wishes.html" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ffd6d6;
+        color: #1b2a49;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      " onmouseover="this.style.backgroundColor='#ffecec'" onmouseout="this.style.backgroundColor='#ffd6d6'">
+        Go to Next Surprise 🎁
+      </a>
+    </div>
+  </div>  
+</div>
+
+<!-- Floating Balloons & Hearts -->
+<div class="floating-container">
+  <div class="balloon">🎈</div>
+  <div class="balloon">💖</div>
+  <div class="balloon">💞</div>
+  <div class="balloon">🎉</div>
+</div>
+
+<!-- Background music with loop -->
+<audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" preload="auto" loop></audio>
+
+<!-- Popper sound -->
+<audio id="pop-sound" src="https://www.soundjay.com/button/sounds/button-16.mp3" preload="auto"></audio>
+
+<!-- Confetti canvas -->
+<canvas id="confetti"></canvas>
+
+<!-- Confetti script -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  function showMessage() {
+    document.querySelector('.tap-card').style.display = 'none';
+    document.getElementById('card-content').style.display = 'block';
+
+    document.getElementById('bg-music').play();
+    document.getElementById('pop-sound').play();
+
+    const duration = 4000;
+    const end = Date.now() + duration;
+
+    const colors = ['#ffd6d6', '#f9f7f3', '#3a5370'];
+
+    (function frame() {
+      confetti({
+        particleCount: 10,
+        startVelocity: 30,
+        spread: 360,
+        ticks: 60,
+        origin: {
+          x: Math.random(),
+          y: Math.random() - 0.2
+        },
+        colors: colors,
+        shapes: ['circle', 'square'],
+        scalar: 1.2
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
+</script>
+
+</body>
+</html>
