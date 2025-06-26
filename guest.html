@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Birthday Wishes Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #fbd3e9, #bb377d);
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .form-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff90bb;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff6fa3;
+    }
+
+    .success {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎈 Leave a Birthday Wish!</h1>
+
+  <div class="form-box">
+    <form onsubmit="submitWish(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <textarea id="wish" rows="4" placeholder="Your Birthday Message" required></textarea>
+      <button type="submit">Send Wish 🎉</button>
+    </form>
+    <div id="success-message" class="success" style="display: none;">
+      ✅ Your wish has been saved!
+    </div>
+  </div>
+
+  <script>
+    function submitWish(event) {
+      event.preventDefault(); // Prevent page reload
+
+      const name = document.getElementById("name").value.trim();
+      const wish = document.getElementById("wish").value.trim();
+
+      if (name && wish) {
+        const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
+        wishes.unshift({ name, wish });
+        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
+
+        // Show success message
+        document.getElementById("success-message").style.display = "block";
+
+        // Clear input fields
+        document.getElementById("name").value = "";
+        document.getElementById("wish").value = "";
+      } else {
+        alert("Please enter both your name and message.");
+      }
+    }
+  </script>
+
+</body>
+</html>
