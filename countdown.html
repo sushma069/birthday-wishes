@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AOT Birthday Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Black+Ops+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: url('couimg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Black Ops One', sans-serif;
+      overflow: hidden;
+      color: white;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    #countdown {
+      font-size: 28px;
+      padding: 20px 30px;
+      border-radius: 15px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(2px);
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    #btn {
+      margin-top: 25px;
+      padding: 14px 34px;
+      font-size: 20px;
+      border-radius: 12px;
+      background-color: #333333;
+      color: #ffffff;
+      border: 2px solid #555;
+      opacity: 0.6;
+      cursor: not-allowed;
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    #btn:enabled {
+      background-color: grey;
+      border-color: black;
+      color: white;
+      opacity: 1;
+      cursor: pointer;
+      box-shadow: 0 0 12px white, 0 0 18px white;
+    }
+
+    #btn:enabled:hover {
+      transform: scale(1.08);
+      background-color: black;
+    }
+
+    #lightning {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 100;
+    }
+
+    .shake {
+      animation: shake 0.4s linear 3;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-10px, 5px); }
+      50% { transform: translate(10px, -5px); }
+      75% { transform: translate(-5px, 5px); }
+      100% { transform: translate(0, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lightning"></div>
+  <div id="countdown">Loading...</div>
+  <button id="btn" disabled>🎁 For You</button>
+
+  <script>
+    const targetDate = new Date("June 28, 2025 23:59:59").getTime();
+    const countdownBox = document.getElementById("countdown");
+    const lightning = document.getElementById("lightning");
+    const btn = document.getElementById("btn");
+
+    function showLightningEffect() {
+      lightning.style.opacity = 1;
+      setTimeout(() => lightning.style.opacity = 0, 100);
+      document.body.classList.add("shake");
+      setTimeout(() => document.body.classList.remove("shake"), 1000);
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        clearInterval(interval);
+        countdownBox.innerHTML = " Countdown Over!";
+        showLightningEffect();
+        btn.disabled = false;
+        return;
+      }
+
+      const seconds = Math.floor((distance / 1000) % 60);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const days = Math.floor((distance / (1000 * 60 * 60 * 24)) % 30);
+      const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+
+      countdownBox.innerHTML = `
+        <div>${months} <b>months</b> ${days} <b>days</b></div>
+        <div>${hours} <b>hours</b> ${minutes} <b>minutes</b> ${seconds} <b>seconds</b></div>
+      `;
+    }
+
+    btn.addEventListener("click", () => {
+      window.location.href = "msg.html"; // Redirect to message page
+    });
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+</body>
+</html>
