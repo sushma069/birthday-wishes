@@ -188,26 +188,33 @@
       } else {
         document.getElementById("error-message").style.display = "block";
       }
-  function submitWish(event) {
-  event.preventDefault();
-  const name = document.getElementById("studentName").value.trim();
-  const wish = document.getElementById("studentWish").value.trim();
+   function submitWish(event) {
+    event.preventDefault();
 
-  if (name && wish) {
-    db.collection("birthdayMessages").add({ name, wish, createdAt: new Date() })
-      .then(() => {
+    const name = document.getElementById("studentName").value.trim();
+    const wish = document.getElementById("studentWish").value.trim();
+
+    if (name && wish) {
+      db.collection("birthdayMessages").add({
+        name: name,
+        wish: wish,
+        createdAt: new Date()
+      }).then(() => {
         document.getElementById("success-message").style.display = "block";
         document.getElementById("studentName").value = "";
         document.getElementById("studentWish").value = "";
-        document.getElementById("success-message").style.display = "block";
 
-      .catch((error) => {
-        alert("Error saving wish: " + error.message);
+        // Optional: redirect after 1 sec
+        setTimeout(() => {
+          window.location.href = "wishes.html";
+        }, 1000);
+      }).catch((error) => {
+        alert("Error submitting wish: " + error.message);
       });
-  } else {
-    alert("Please enter both name and wish.");
+    } else {
+      alert("Please enter both name and wish.");
+    }
   }
-}
     }
   </script>
 
