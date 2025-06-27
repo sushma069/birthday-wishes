@@ -152,23 +152,26 @@
       }
     }
 
-    function submitWish(event) {
-      event.preventDefault();
-      const name = document.getElementById("studentName").value.trim();
-      const wish = document.getElementById("studentWish").value.trim();
+  function submitWish(event) {
+  event.preventDefault();
+  const name = document.getElementById("studentName").value.trim();
+  const wish = document.getElementById("studentWish").value.trim();
 
-      if (name && wish) {
-        const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
-        wishes.unshift({ name, wish });
-        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
+  if (name && wish) {
+    const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
+    wishes.unshift({ name, wish });
+    localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
 
-        document.getElementById("success-message").style.display = "block";
-        document.getElementById("studentName").value = "";
-        document.getElementById("studentWish").value = "";
-      } else {
-        alert("Please enter both name and wish.");
-      }
-    }
+    document.getElementById("studentName").value = "";
+    document.getElementById("studentWish").value = "";
+
+    // Redirect after storing the wish
+    window.location.href = "wishes.html";
+  } else {
+    alert("Please enter both name and wish.");
+  }
+}
+
 
     function checkLogin(event) {
       event.preventDefault();
