@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <title>🎊 Birthday Wishes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Firebase App -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<!-- Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyCt5fnVbSPRGdZcGSgMNhy5_STnXEDCLoo",
+  authDomain: "fir-fa64d.firebaseapp.com",
+  projectId: "fir-fa64d",
+  storageBucket: "fir-fa64d.firebasestorage.app",
+  messagingSenderId: "635264805714",
+  appId: "1:635264805714:web:3491493593b3500928e88b",
+  measurementId: "G-97FMEFEBSG"
+};
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
   <style>
     body {
       font-family: 'Arial', sans-serif;
