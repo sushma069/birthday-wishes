@@ -199,23 +199,30 @@
         name: name,
         wish: wish,
         createdAt: new Date()
-      }).then(() => {
-        document.getElementById("success-message").style.display = "block";
+      })
+      .then(() => {
+        // ✅ Clear the form
         document.getElementById("studentName").value = "";
         document.getElementById("studentWish").value = "";
 
-        // Optional: redirect after 1 sec
+        // ✅ Show success message
+        const successMessage = document.getElementById("success-message");
+        successMessage.style.display = "block";
+
+        // ✅ Optional: Hide it after 3 seconds
         setTimeout(() => {
-          window.location.href = "wishes.html";
-        }, 1000);
-      }).catch((error) => {
+          successMessage.style.display = "none";
+        }, 3000);
+      })
+      .catch((error) => {
         alert("Error submitting wish: " + error.message);
+        console.error(error);
       });
     } else {
       alert("Please enter both name and wish.");
     }
   }
-    }
+
   </script>
 
 </body>
