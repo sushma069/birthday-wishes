@@ -152,7 +152,20 @@
       }
     }
 
-  function submitWish(event) {
+  
+
+
+    function checkLogin(event) {
+      event.preventDefault();
+      const inputName = document.getElementById("hostName").value.trim().toLowerCase();
+      const allowedName = "vamshi peese0793";
+
+      if (inputName === allowedName.toLowerCase()) {
+        localStorage.setItem("name", inputName);
+        window.location.href = "animecount.html";
+      } else {
+        document.getElementById("error-message").style.display = "block";
+      }function submitWish(event) {
   event.preventDefault();
   const name = document.getElementById("studentName").value.trim();
   const wish = document.getElementById("studentWish").value.trim();
@@ -171,19 +184,6 @@
     alert("Please enter both name and wish.");
   }
 }
-
-
-    function checkLogin(event) {
-      event.preventDefault();
-      const inputName = document.getElementById("hostName").value.trim().toLowerCase();
-      const allowedName = "vamshi peese0793";
-
-      if (inputName === allowedName.toLowerCase()) {
-        localStorage.setItem("name", inputName);
-        window.location.href = "animecount.html";
-      } else {
-        document.getElementById("error-message").style.display = "block";
-      }
     }
   </script>
 
