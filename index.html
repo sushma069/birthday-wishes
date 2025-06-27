@@ -145,7 +145,7 @@
       <textarea id="studentWish" rows="4" placeholder="Your Birthday Message" required></textarea>
       <button type="submit">Send Wish 🎉</button>
     </form>
-    <div id="success-message" style="display: none;">✅ Your wish has been saved!</div>
+    <div id="success-message" style="color: lightgreen; display: none;">✅ Your wish has been saved!</div>
   </div>
 
   <!-- 🔐 Host Login Form -->
@@ -199,10 +199,8 @@
         document.getElementById("success-message").style.display = "block";
         document.getElementById("studentName").value = "";
         document.getElementById("studentWish").value = "";
-        setTimeout(() => {
-          window.location.href = "wishes.html";
-        }, 1000);
-      })
+        document.getElementById("success-message").style.display = "block";
+
       .catch((error) => {
         alert("Error saving wish: " + error.message);
       });
