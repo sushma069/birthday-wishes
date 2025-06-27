@@ -77,33 +77,37 @@
     let wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
 
     function renderMessages() {
+  messagesContainer.innerHTML = "<p style='text-align:center;'>Loading...</p>";
+  
+  db.collection("birthdayMessages").orderBy("createdAt", "desc").get()
+    .then(snapshot => {
       messagesContainer.innerHTML = "";
 
-      if (wishes.length === 0) {
+      if (snapshot.empty) {
         messagesContainer.innerHTML = "<p style='text-align:center;'>No wishes yet.</p>";
         return;
       }
 
-      wishes.forEach((entry, index) => {
+      snapshot.forEach((doc, index) => {
+        const entry = doc.data();
         const msgDiv = document.createElement("div");
         msgDiv.className = "message";
         msgDiv.innerHTML = `
           <strong>${entry.name}:</strong> ${entry.wish}
-          <button class="delete-btn" onclick="deleteMessage(${index})">Delete</button>
+          <button class="delete-btn" onclick="deleteMessage('${doc.id}')">Delete</button>
         `;
         messagesContainer.appendChild(msgDiv);
       });
-    }
+    });
+}
 
-    function deleteMessage(index) {
-      if (confirm("Are you sure you want to delete this wish?")) {
-        wishes.splice(index, 1);
-        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
-        renderMessages();
-      }
-    }
+function deleteMessage(docId) {
+  if (confirm("Are you sure you want to delete this wish?")) {
+    db.collection("birthdayMessages").doc(docId).delete().then(renderMessages);
+  }
+}
 
-    renderMessages();
+renderMessages();
   </script>
 
 </body>
