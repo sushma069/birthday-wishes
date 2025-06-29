@@ -48,7 +48,7 @@
     .toggle-button:hover {
       background: linear-gradient(135deg, #e26ec4, #8c6fff);
     }
-    
+
     .scroll-container {
       display: flex;
       overflow-x: auto;
@@ -96,6 +96,16 @@
       display: none;
     }
 
+    .video-border {
+      max-width: 500px;
+      margin: 0 auto;
+      border: 6px solid #f78fdd;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
     .video-responsive {
       position: relative;
       padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -115,7 +125,10 @@
 <body>
 
   <!-- 🎵 Background Music -->
-  
+  <audio autoplay loop>
+    <source src="Memories.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <h1>📸 Birthday Photo & Video Memories</h1>
 
@@ -127,9 +140,8 @@
 
   <!-- 📷 Photo Section -->
   <div id="photos" class="scroll-container hidden">
-    
     <a href="group.jpg" class="glightbox"><img src="group.jpg" alt="Group 1"></a>
-    <a href="group2.jpg" class="glightbox"><img src="group2.jpg" alt="Group 2"></a>
+    <a href="group1.jpg" class="glightbox"><img src="group2.jpg" alt="Group 2"></a>
     <a href="img1.jpg" class="glightbox"><img src="img1.jpg" alt="Memory 1"></a>
     <a href="img2.jpg" class="glightbox"><img src="img2.jpg" alt="Memory 2"></a>
     <a href="img3.jpg" class="glightbox"><img src="img3.jpg" alt="Memory 3"></a>
@@ -152,13 +164,15 @@
   </div>
 
   <!-- 🎥 Video Section -->
-  <div id="videos" class="hidden">
-    <div class="video-responsive">
-      <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-      </iframe>
+  <div id="videos" class="hidden" style="text-align: center;">
+    <div class="video-border">
+      <div class="video-responsive">
+        <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+      </div>
     </div>
   </div>
 
