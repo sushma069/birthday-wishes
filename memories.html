@@ -95,19 +95,21 @@
     .hidden {
       display: none;
     }
+
     .video-responsive {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-  }
-  .video-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+    }
+
+    .video-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -128,8 +130,8 @@
 
   <!-- 📷 Photo Section -->
   <div id="photos" class="scroll-container hidden">
-    <a href="group.jpg" class="glightbox" id = "group1"><img src="group.jpg" alt="Group 1"></a>
-    <a href="group1.jpg" class="glightbox" id = "group2"><img src="group2.jpg" alt="Group 2"></a>
+    <a href="group.jpg" class="glightbox"><img src="group.jpg" alt="Group 1"></a>
+    <a href="group1.jpg" class="glightbox"><img src="group2.jpg" alt="Group 2"></a>
     <a href="img1.jpg" class="glightbox"><img src="img1.jpg" alt="Memory 1"></a>
     <a href="img2.jpg" class="glightbox"><img src="img2.jpg" alt="Memory 2"></a>
     <a href="img3.jpg" class="glightbox"><img src="img3.jpg" alt="Memory 3"></a>
@@ -144,25 +146,25 @@
     <a href="img12.jpg" class="glightbox"><img src="img12.jpg" alt="Memory 12"></a>
     <a href="img13.jpg" class="glightbox"><img src="img13.jpg" alt="Memory 13"></a>
     <a href="img14.jpg" class="glightbox"><img src="img14.jpg" alt="Memory 14"></a>
-    <a href="img15.jpg" class="glightbox"><img src="img15.jpg" alt="Memory 14"></a>
-    <a href="img16.jpg" class="glightbox"><img src="img16.jpg" alt="Memory 14"></a>
-    <a href="img17.jpg" class="glightbox"><img src="img17.jpg" alt="Memory 14"></a>
-    <a href="img18.jpg" class="glightbox"><img src="img18.jpg" alt="Memory 14"></a>
-    <a href="img19.jpg" class="glightbox"><img src="img19.jpg" alt="Memory 14"></a>
-
-    <!-- Add more images as needed -->
+    <a href="img15.jpg" class="glightbox"><img src="img15.jpg" alt="Memory 15"></a>
+    <a href="img16.jpg" class="glightbox"><img src="img16.jpg" alt="Memory 16"></a>
+    <a href="img17.jpg" class="glightbox"><img src="img17.jpg" alt="Memory 17"></a>
+    <a href="img18.jpg" class="glightbox"><img src="img18.jpg" alt="Memory 18"></a>
+    <a href="img19.jpg" class="glightbox"><img src="img19.jpg" alt="Memory 19"></a>
   </div>
 
   <!-- 🎥 Video Section -->
- 
-<div class="video-responsive">
-  <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-</div>
+  <div id="videos" class="hidden">
+    <div class="video-responsive">
+      <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+      </iframe>
+    </div>
+  </div>
 
+  <!-- 🔙 Back Button -->
   <a href="index.html" class="back-button">🔙 Back to Portal</a>
 
   <!-- GLightbox JS -->
@@ -178,7 +180,6 @@
     function showSection(section) {
       document.getElementById('photos').classList.add('hidden');
       document.getElementById('videos').classList.add('hidden');
-
       document.getElementById(section).classList.remove('hidden');
     }
   </script>
