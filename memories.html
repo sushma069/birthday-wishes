@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📸 Photo & Video Memories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- GLightbox CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Trebuchet MS', sans-serif;
+      background-image: url('https://i.redd.it/um8hwepwf4h61.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow: 2px 12px 14px blue;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .toggle-button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background: linear-gradient(135deg, #f78fdd, #b77cff);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-button:hover {
+      background: linear-gradient(135deg, #e26ec4, #8c6fff);
+    }
+
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px;
+      scroll-snap-type: x mandatory;
+      background: rgba(70, 20, 10, 0.4);
+      border-radius: 12px;
+      justify-content: flex-start;
+    }
+
+    .scroll-container a {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 500px;
+      scroll-snap-align: start;
+    }
+
+    .scroll-container img,
+    .scroll-container video {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #f78fdd, #b77cff);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button:hover {
+      background: linear-gradient(135deg, #e26ec4, #8c6fff);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎵 Background Music -->
+  <audio autoplay loop>
+    <source src="audio/memories-maroon5.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h1>📸 Birthday Photo & Video Memories</h1>
+
+  <!-- Toggle Buttons -->
+  <div class="buttons">
+    <button class="toggle-button" onclick="showSection('photos')">📷 Show Photos</button>
+    <button class="toggle-button" onclick="showSection('videos')">🎥 Show Videos</button>
+  </div>
+
+  <!-- 📷 Photo Section -->
+  <div id="photos" class="scroll-container hidden">
+    <a href="https://i.insider.com/5fbe98c550e71a0011557672?width=700" class="glightbox"><img src="https://i.insider.com/5fbe98c550e71a0011557672?width=700" alt="Memory 1"></a>
+    <a href="images/photo2.jpg" class="glightbox"><img src="images/photo2.jpg" alt="Memory 2"></a>
+    <a href="images/photo3.jpg" class="glightbox"><img src="images/photo3.jpg" alt="Memory 3"></a>
+    <a href="images/photo4.jpg" class="glightbox"><img src="images/photo4.jpg" alt="Memory 4"></a>
+    <a href="images/photo5.jpg" class="glightbox"><img src="images/photo5.jpg" alt="Memory 5"></a>
+    <a href="images/photo6.jpg" class="glightbox"><img src="images/photo6.jpg" alt="Memory 6"></a>
+    <a href="images/photo7.jpg" class="glightbox"><img src="images/photo7.jpg" alt="Memory 7"></a>
+    <a href="images/photo8.jpg" class="glightbox"><img src="images/photo8.jpg" alt="Memory 8"></a>
+    <a href="images/photo9.jpg" class="glightbox"><img src="images/photo9.jpg" alt="Memory 9"></a>
+    <a href="images/photo10.jpg" class="glightbox"><img src="images/photo10.jpg" alt="Memory 10"></a>
+    <a href="images/photo11.jpg" class="glightbox"><img src="images/photo11.jpg" alt="Memory 11"></a>
+    <a href="images/photo12.jpg" class="glightbox"><img src="images/photo12.jpg" alt="Memory 12"></a>
+    <a href="images/photo13.jpg" class="glightbox"><img src="images/photo13.jpg" alt="Memory 13"></a>
+    <a href="images/photo14.jpg" class="glightbox"><img src="images/photo14.jpg" alt="Memory 14"></a>
+
+
+    <!-- Add more images as needed -->
+  </div>
+
+  <!-- 🎥 Video Section -->
+  <div id="videos" class="scroll-container hidden">
+    <a href="videos/video1.mp4" class="glightbox" data-type="video">
+      <video muted>
+        <source src="videos/video1.mp4" type="video/mp4">
+      </video>
+    </a>
+    <a href="videos/video2.mp4" class="glightbox" data-type="video">
+      <video muted>
+        <source src="videos/video2.mp4" type="video/mp4">
+      </video>
+    </a>
+    <!-- Add more videos as needed -->
+  </div>
+
+  <a href="index.html" class="back-button">🔙 Back to Portal</a>
+
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    const lightbox = GLightbox({
+      touchNavigation: true,
+      loop: true,
+      zoomable: true,
+      autoplayVideos: true
+    });
+
+    function showSection(section) {
+      document.getElementById('photos').classList.add('hidden');
+      document.getElementById('videos').classList.add('hidden');
+
+      document.getElementById(section).classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
