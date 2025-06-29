@@ -125,7 +125,7 @@
 <body>
 
   <!-- 🎵 Background Music -->
-  <audio autoplay loop>
+  <audio id="bg-music" autoplay loop>
     <source src="Memories.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -141,7 +141,7 @@
   <!-- 📷 Photo Section -->
   <div id="photos" class="scroll-container hidden">
     <a href="group.jpg" class="glightbox"><img src="group.jpg" alt="Group 1"></a>
-    <a href="group1.jpg" class="glightbox"><img src="group2.jpg" alt="Group 2"></a>
+    <a href="group2.jpg" class="glightbox"><img src="group2.jpg" alt="Group 2"></a>
     <a href="img1.jpg" class="glightbox"><img src="img1.jpg" alt="Memory 1"></a>
     <a href="img2.jpg" class="glightbox"><img src="img2.jpg" alt="Memory 2"></a>
     <a href="img3.jpg" class="glightbox"><img src="img3.jpg" alt="Memory 3"></a>
@@ -164,18 +164,17 @@
   </div>
 
   <!-- 🎥 Video Section -->
-
-  <div id="videos" class="scroll-container hidden">
-    <a href="videos/video1.mp4" class="glightbox" data-type="video">
-      <video>
-      <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-      </iframe>
-     </video>
-    </a>
-   </div>
+  <div id="videos" class="hidden" style="text-align: center;">
+    <div class="video-border">
+      <div class="video-responsive">
+        <iframe src="https://www.youtube.com/embed/uuVEDKzk4zY"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- 🔙 Back Button -->
   <a href="index.html" class="back-button">🔙 Back to Portal</a>
@@ -191,8 +190,17 @@
     });
 
     function showSection(section) {
+      const bgMusic = document.getElementById('bg-music');
+
       document.getElementById('photos').classList.add('hidden');
       document.getElementById('videos').classList.add('hidden');
+
+      if (section === 'photos') {
+        bgMusic.play().catch(() => {});
+      } else if (section === 'videos') {
+        bgMusic.pause();
+      }
+
       document.getElementById(section).classList.remove('hidden');
     }
   </script>
