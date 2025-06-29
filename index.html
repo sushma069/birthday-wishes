@@ -4,26 +4,6 @@
   <meta charset="UTF-8">
   <title>🎂 Birthday Surprise Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Firebase App -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<!-- Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyCt5fnVbSPRGdZcGSgMNhy5_STnXEDCLoo",
-  authDomain: "fir-fa64d.firebaseapp.com",
-  projectId: "fir-fa64d",
-  storageBucket: "fir-fa64d.firebasestorage.app",
-  messagingSenderId: "635264805714",
-  appId: "1:635264805714:web:3491493593b3500928e88b",
-  measurementId: "G-97FMEFEBSG"
-};
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
-
   <style>
     * {
       box-sizing: border-box;
@@ -61,7 +41,7 @@
     button {
       padding: 15px 25px;
       font-size: 1.1em;
-      background: linear-gradient(135deg, #f78fdd, #b77cff); /* Anime-matching colors */
+      background: linear-gradient(135deg, #f78fdd, #b77cff);
       border: none;
       border-radius: 10px;
       cursor: pointer;
@@ -73,7 +53,7 @@
 
     button:hover {
       transform: scale(1.05);
-      background: linear-gradient(135deg, #e26ec4, #8c6fff); /* Hover variation */
+      background: linear-gradient(135deg, #e26ec4, #8c6fff);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     }
 
@@ -135,6 +115,7 @@
   <div class="button-group">
     <button onclick="showForm('student')">🎓 I'm a Student</button>
     <button onclick="showForm('host')">🔐 Login as Vamshi</button>
+    <button onclick="goToMemories()">📸 Memories</button>
   </div>
 
   <!-- 🎓 Student Wish Form -->
@@ -145,7 +126,7 @@
       <textarea id="studentWish" rows="4" placeholder="Your Birthday Message" required></textarea>
       <button type="submit">Send Wish 🎉</button>
     </form>
-    <div id="success-message" style="color: lightgreen; display: none;">✅ Your wish has been saved!</div>
+    <div id="success-message" style="display: none;">✅ Your wish has been saved!</div>
   </div>
 
   <!-- 🔐 Host Login Form -->
@@ -159,8 +140,6 @@
   </div>
 
   <script>
-	  
-    const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
     function showForm(type) {
       document.getElementById('studentForm').classList.remove('visible');
       document.getElementById('hostForm').classList.remove('visible');
@@ -174,8 +153,23 @@
       }
     }
 
-  
+    function submitWish(event) {
+      event.preventDefault();
+      const name = document.getElementById("studentName").value.trim();
+      const wish = document.getElementById("studentWish").value.trim();
 
+      if (name && wish) {
+        const wishes = JSON.parse(localStorage.getItem("birthdayMessages") || "[]");
+        wishes.unshift({ name, wish });
+        localStorage.setItem("birthdayMessages", JSON.stringify(wishes));
+
+        document.getElementById("success-message").style.display = "block";
+        document.getElementById("studentName").value = "";
+        document.getElementById("studentWish").value = "";
+      } else {
+        alert("Please enter both name and wish.");
+      }
+    }
 
     function checkLogin(event) {
       event.preventDefault();
@@ -189,41 +183,10 @@
         document.getElementById("error-message").style.display = "block";
       }
     }
-   function submitWish(event) {
-    event.preventDefault();
 
-    const name = document.getElementById("studentName").value.trim();
-    const wish = document.getElementById("studentWish").value.trim();
-
-    if (name && wish) {
-      db.collection("birthdayMessages").add({
-        name: name,
-        wish: wish,
-        createdAt: new Date()
-      })
-      .then(() => {
-        // ✅ Clear the form
-        document.getElementById("studentName").value = "";
-        document.getElementById("studentWish").value = "";
-
-        // ✅ Show success message
-        const successMessage = document.getElementById("success-message");
-        successMessage.style.display = "block";
-
-        // ✅ Optional: Hide it after 3 seconds
-        setTimeout(() => {
-          successMessage.style.display = "none";
-        }, 3000);
-      })
-      .catch((error) => {
-        alert("Error submitting wish: " + error.message);
-        console.error(error);
-      });
-    } else {
-      alert("Please enter both name and wish.");
+    function goToMemories() {
+      window.location.href = "memories.html";
     }
-  }
-
   </script>
 
 </body>
